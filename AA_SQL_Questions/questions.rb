@@ -96,7 +96,7 @@ class User
   def average_karma 
     data = QuestionsDB.instance.execute(<<-SQL, self.id)
     SELECT
-      CAST((COUNT(question_likes.user_id) / COUNT(DISTINCT questions.id)) AS FLOAT) AS avg_karma
+      CAST(COUNT(question_likes.user_id) AS FLOAT) / COUNT(DISTINCT questions.id) AS avg_karma
     FROM 
       questions
     LEFT OUTER JOIN question_likes
@@ -110,7 +110,7 @@ class User
   # def average_karma 
   #   data = QuestionsDB.instance.execute(<<-SQL, self.id)
   #     SELECT
-  #      CAST((COUNT(question_likes.user_id) / COUNT(DISTINCT questions.id)) AS FLOAT)
+  #     CAST(COUNT(question_likes.user_id) AS FLOAT) / COUNT(DISTINCT questions.id) AS avg_karma
   #     FROM
   #       questions 
   #     LEFT OUTER JOIN 
